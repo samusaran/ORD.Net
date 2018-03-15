@@ -1,0 +1,11 @@
+{
+  "profiles": {
+    "Start Service": {
+      "commandName": "Project",
+      "launchUrl": "api/orders",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      }
+    }
+  }
+}

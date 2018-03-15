@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  <?define UpgradeCode = "1798693f-cbcd-4cb5-9ef5-3e2407083c12"?>
+  <Product Id="*" Name="ORD.NET" Language="1040" Version="!(bind.FileVersion.OrdExe)" Manufacturer="Alessandro Losi" UpgradeCode="$(var.UpgradeCode)">
+    <Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" Keywords="!(bind.FileVersion.OrdExe)"/>
+
+    <Icon Id="InstallerIcon" SourceFile="$(var.ORD.NET.ProjectDir)Resources\Pizza-icon.ico"/>
+    <Property Id="ARPPRODUCTICON" Value="InstallerIcon" />
+
+    <Upgrade Id="$(var.UpgradeCode)">
+      <UpgradeVersion Minimum="1.0.0.0"
+                      IncludeMinimum="yes"
+                      OnlyDetect="no"
+                      Maximum="!(bind.FileVersion.OrdExe)"
+                      IncludeMaximum="yes"
+                      Property="PREVIOUSFOUND" />
+    </Upgrade>
+    <MajorUpgrade
+      Schedule="afterInstallInitialize"
+      DowngradeErrorMessage="A newer version of [ProductName] is already installed."
+      AllowSameVersionUpgrades="yes"/>
+    
+    <MediaTemplate EmbedCab="yes" />
+
+    <WixVariable Id="WixUIDialogBmp" Value="Resources/burger-gradient.bmp" />
+
+    <Feature Id="ProductFeature" Title="ORD.NET" Level="1">
+      <ComponentGroupRef Id="ProductComponents" />
+      <ComponentRef Id="StartMenuShortcut"/>
+      <ComponentRef Id="DesktopShortcut"/>
+      <ComponentRef Id="InstallFolderKey"/>
+    </Feature>
+
+    <UI Id="DefaultUI">
+      <Property Id="WIXUI_INSTALLDIR">INSTALLFOLDER</Property>
+      <Property Id="WIXUI_EXITDIALOGOPTIONALCHECKBOXTEXT" Value="Lancia l'ORD" />
+      <Property Id="WIXUI_EXITDIALOGOPTIONALCHECKBOX" Value="1" />
+
+      <Property Id="ARPINSTALLLOCATION">INSTALLFOLDER</Property>
+
+      <UIRef Id="WixUI_InstallDir" />
+      <UIRef Id="WixUI_ErrorProgressText" />
+      <DialogRef Id="FilesInUse" />
+      <DialogRef Id="MsiRMFilesInUse" />
+
+      <Publish Dialog="ExitDialog"
+          Control="Finish"
+          Event="DoAction"
+          Value="LaunchApplication">WIXUI_EXITDIALOGOPTIONALCHECKBOX = 1 and NOT Installed</Publish>
+      <Publish Dialog="WelcomeDlg"
+            Control="Next"
+            Event="NewDialog"
+            Value="InstallDirDlg"
+            Order="2">1</Publish>
+      <Publish Dialog="InstallDirDlg"
+            Control="Back"
+            Event="NewDialog"
+            Value="WelcomeDlg"
+            Order="2">1</Publish>
+    </UI>
+
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="ProgramFilesFolder">
+        <Directory Id="INSTALLFOLDER" Name="ORD.NET" />
+      </Directory>
+      <Directory Id="ProgramMenuFolder">
+        <Directory Id="ApplicationProgramsFolder" Name="ORD.Net"/>
+      </Directory>
+      <Directory Id="DesktopFolder" />
+    </Directory>
+
+    <DirectoryRef Id="INSTALLFOLDER">
+
+    </DirectoryRef>
+
+    <DirectoryRef Id="ApplicationProgramsFolder" >
+      <Component Id="StartMenuShortcut" Guid="5ce0a482-0d29-4d4e-b1d7-bc16e4e1d4c5">
+        <Shortcut Id="ApplicationStartMenuShortcut" Name="ORD.Net" Description="ORD.Net" Target="[#OrdExe]" WorkingDirectory="INSTALLFOLDER"/>
+        <RegistryValue Root="HKCU" Key="Software\ORD.NET\ORD.Net" Name="installed" Type="integer" Value="1" KeyPath="yes"/>
+        <RemoveFolder Id="ApplicationProgramsFolder" On="uninstall"/>
+      </Component>
+    </DirectoryRef>
+
+    <DirectoryRef Id="DesktopFolder">
+      <Component Id="DesktopShortcut" Guid="b52f832b-ea0e-41ce-9f19-983d1c8cf30b">
+        <Shortcut Id="ApplicationDesktopShortcut" Name="ORD.Net" Description="Se magna" Target="[#OrdExe]" WorkingDirectory="INSTALLFOLDER" />
+        <RegistryValue Root="HKCU" Key="Software\ORD.NET\ORD.Net" Name="installed" Type="integer" Value="1" KeyPath="yes"/>
+        <RemoveFile Id="RemoveDesktopShortcut" Name="ORD.Net.lnk" On="uninstall"/>
+      </Component>
+    </DirectoryRef>
+
+    <ComponentGroup Id="ProductComponents" Directory="INSTALLFOLDER">
+      <Component Id="MainComponents" Guid="30B9CACC-4780-43A7-8E1F-7EF8AEF830E9">
+        <File Id="OrdExe" Name="$(var.ORD.NET.TargetFileName)" Source="$(var.ORD.NET.TargetPath)" KeyPath="yes"/>
+        <File Id="config" Name="$(var.ORD.NET.TargetFileName).config" Source="$(var.ORD.NET.TargetDir)$(var.ORD.NET.TargetFileName).config" />
+        <File Id="Dal" Name="ORD.NET.Dal.dll" Source="$(var.ORD.NET.TargetDir)ORD.NET.Dal.dll" />
+        <File Id="Common" Name="ORD.NET.Common.dll" Source="$(var.ORD.NET.TargetDir)ORD.NET.Common.dll" />
+        <File Id="Entities" Name="ORD.NET.Entities.dll" Source="$(var.ORD.NET.TargetDir)ORD.NET.Entities.dll" />
+      </Component>
+      <Component Id="EntityFramework" Guid="EFFE2751-D4E3-4FB6-89AC-75486D24228A">
+        <File Id="EntityFrameworkDll" Name="EntityFramework.dll" Source="$(var.ORD.NET.TargetDir)EntityFramework.dll" />
+        <File Id="EntityFrameworkXml" Name="EntityFramework.xml" Source="$(var.ORD.NET.TargetDir)EntityFramework.xml" />
+        <File Id="EntityFrameworkSqlServerDll" Name="EntityFramework.SqlServer.dll" Source="$(var.ORD.NET.TargetDir)EntityFramework.SqlServer.dll" />
+        <File Id="EntityFrameworkSqlServerXml" Name="EntityFramework.SqlServer.xml" Source="$(var.ORD.NET.TargetDir)EntityFramework.SqlServer.xml" />
+      </Component>
+      <Component Id="EntityFrameworkPlus">
+        <File Id="EF6" Name="Z.EntityFramework.Plus.EF6.dll" Source="$(var.ORD.NET.TargetDir)Z.EntityFramework.Plus.EF6.dll" KeyPath="yes"/>
+      </Component>
+      <Component Id="Ninject" Guid="36AF83B2-6B05-4687-B774-2FC1A356F9A3">
+        <File Id="NinjectDll" Name="Ninject.dll" Source="$(var.ORD.NET.TargetDir)Ninject.dll" />
+        <File Id="NinjectXml" Name="Ninject.xml" Source="$(var.ORD.NET.TargetDir)Ninject.xml" />
+      </Component>
+      <Component Id="Syncfusion" Guid="AD04018F-3375-4309-9303-ECA3656882F8">
+        <File Id="Syncfusion.Grid.Base" Name="Syncfusion.Grid.Base.dll" Source="$(var.ORD.NET.TargetDir)Syncfusion.Grid.Base.dll" />
+        <File Id="Syncfusion.Grid.Grouping.Base" Name="Syncfusion.Grid.Grouping.Base.dll" Source="$(var.ORD.NET.TargetDir)Syncfusion.Grid.Grouping.Base.dll" />
+        <File Id="Syncfusion.Grid.Grouping.Windows" Name="Syncfusion.Grid.Grouping.Windows.dll" Source="$(var.ORD.NET.TargetDir)Syncfusion.Grid.Grouping.Windows.dll" />
+        <File Id="Syncfusion.Grid.Grouping.Windows.XmlSerializers" Name="Syncfusion.Grid.Grouping.Windows.XmlSerializers.dll" Source="$(var.ORD.NET.TargetDir)Syncfusion.Grid.Grouping.Windows.XmlSerializers.dll" />
+        <File Id="Syncfusion.Grid.Windows" Name="Syncfusion.Grid.Windows.dll" Source="$(var.ORD.NET.TargetDir)Syncfusion.Grid.Windows.dll" />
+        <File Id="Syncfusion.Grid.Windows.XmlSerializers" Name="Syncfusion.Grid.Windows.XmlSerializers.dll" Source="$(var.ORD.NET.TargetDir)Syncfusion.Grid.Windows.XmlSerializers.dll" />
+        <File Id="Syncfusion.Grouping.Base" Name="Syncfusion.Grouping.Base.dll" Source="$(var.ORD.NET.TargetDir)Syncfusion.Grouping.Base.dll" />
+        <File Id="Syncfusion.Shared.Base" Name="Syncfusion.Shared.Base.dll" Source="$(var.ORD.NET.TargetDir)Syncfusion.Shared.Base.dll" />
+        <File Id="Syncfusion.Shared.Windows" Name="Syncfusion.Shared.Windows.dll" Source="$(var.ORD.NET.TargetDir)Syncfusion.Shared.Windows.dll" />
+      </Component>
+      <Component Id="InstallFolderKey">
+        <RegistryKey Root="HKLM" Key="SOFTWARE\ORD.NET\ORD.Net" Action="createAndRemoveOnUninstall">
+          <RegistryValue Name="InstallDir" Type="string" Value="[INSTALLFOLDER]" />
+        </RegistryKey>
+      </Component>
+    </ComponentGroup>
+
+    <Property Id="WixShellExecTarget" Value="[#OrdExe]" />
+    <CustomAction Id="LaunchApplication" BinaryKey="WixCA" DllEntry="WixShellExec" Impersonate="yes" />
+    <CustomAction Id="LaunchFile" FileKey="OrdExe" ExeCommand="/nominimize" Execute='immediate' Return='asyncNoWait'/>
+
+    <InstallExecuteSequence>
+      <Custom Action="LaunchFile" After="InstallFinalize">WIX_UPGRADE_DETECTED AND UILevel=3</Custom>
+    </InstallExecuteSequence>
+
+  </Product>
+</Wix>

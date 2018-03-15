@@ -1,0 +1,137 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27130.2024
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "ORD.NET.Db", "ORDdb\ORD.NET.Db.sqlproj", "{617C3741-F6F4-4989-B744-8EEEF3517A70}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ORD.NET.Dal", "ORD.NET.Dal\ORD.NET.Dal.csproj", "{2E7873CF-16BC-4AE9-897F-3166152BE01B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ORD.NET.Service", "ORD.NET.Service\ORD.NET.Service.csproj", "{BC634480-796F-4611-853A-8D0BF0A3A47A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{763E71CB-437F-4A6A-9537-8B108DEDF716}"
+	ProjectSection(SolutionItems) = preProject
+		build.ps1 = build.ps1
+		Dockerfile = Dockerfile
+		GenerateSwaggerApi.ps1 = GenerateSwaggerApi.ps1
+		swagger.json = swagger.json
+	EndProjectSection
+	ProjectSection(FolderGlobals) = preProject
+		__JSONSchema = http://json.schemastore.org/appsettings
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ORD.NET.Model", "ORD.NET.Model\ORD.NET.Model.csproj", "{39612AB4-C755-43F9-BA6C-CC07304D7E5D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug Remoto|Any CPU = Debug Remoto|Any CPU
+		Debug Remoto|x64 = Debug Remoto|x64
+		Debug Remoto|x86 = Debug Remoto|x86
+		Debug|Any CPU = Debug|Any CPU
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|Any CPU = Release|Any CPU
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{617C3741-F6F4-4989-B744-8EEEF3517A70}.Debug Remoto|Any CPU.ActiveCfg = Default|Any CPU
+		{617C3741-F6F4-4989-B744-8EEEF3517A70}.Debug Remoto|x64.ActiveCfg = Default|Any CPU
+		{617C3741-F6F4-4989-B744-8EEEF3517A70}.Debug Remoto|x64.Build.0 = Default|Any CPU
+		{617C3741-F6F4-4989-B744-8EEEF3517A70}.Debug Remoto|x64.Deploy.0 = Default|Any CPU
+		{617C3741-F6F4-4989-B744-8EEEF3517A70}.Debug Remoto|x86.ActiveCfg = Default|Any CPU
+		{617C3741-F6F4-4989-B744-8EEEF3517A70}.Debug Remoto|x86.Build.0 = Default|Any CPU
+		{617C3741-F6F4-4989-B744-8EEEF3517A70}.Debug Remoto|x86.Deploy.0 = Default|Any CPU
+		{617C3741-F6F4-4989-B744-8EEEF3517A70}.Debug|Any CPU.ActiveCfg = Default|Any CPU
+		{617C3741-F6F4-4989-B744-8EEEF3517A70}.Debug|x64.ActiveCfg = Default|Any CPU
+		{617C3741-F6F4-4989-B744-8EEEF3517A70}.Debug|x64.Build.0 = Default|Any CPU
+		{617C3741-F6F4-4989-B744-8EEEF3517A70}.Debug|x86.ActiveCfg = Default|Any CPU
+		{617C3741-F6F4-4989-B744-8EEEF3517A70}.Debug|x86.Build.0 = Default|Any CPU
+		{617C3741-F6F4-4989-B744-8EEEF3517A70}.Debug|x86.Deploy.0 = Default|Any CPU
+		{617C3741-F6F4-4989-B744-8EEEF3517A70}.Release|Any CPU.ActiveCfg = Default|Any CPU
+		{617C3741-F6F4-4989-B744-8EEEF3517A70}.Release|x64.ActiveCfg = Default|Any CPU
+		{617C3741-F6F4-4989-B744-8EEEF3517A70}.Release|x64.Build.0 = Default|Any CPU
+		{617C3741-F6F4-4989-B744-8EEEF3517A70}.Release|x64.Deploy.0 = Default|Any CPU
+		{617C3741-F6F4-4989-B744-8EEEF3517A70}.Release|x86.ActiveCfg = Default|Any CPU
+		{617C3741-F6F4-4989-B744-8EEEF3517A70}.Release|x86.Build.0 = Default|Any CPU
+		{617C3741-F6F4-4989-B744-8EEEF3517A70}.Release|x86.Deploy.0 = Default|Any CPU
+		{2E7873CF-16BC-4AE9-897F-3166152BE01B}.Debug Remoto|Any CPU.ActiveCfg = Debug|Any CPU
+		{2E7873CF-16BC-4AE9-897F-3166152BE01B}.Debug Remoto|Any CPU.Build.0 = Debug|Any CPU
+		{2E7873CF-16BC-4AE9-897F-3166152BE01B}.Debug Remoto|x64.ActiveCfg = Debug|Any CPU
+		{2E7873CF-16BC-4AE9-897F-3166152BE01B}.Debug Remoto|x64.Build.0 = Debug|Any CPU
+		{2E7873CF-16BC-4AE9-897F-3166152BE01B}.Debug Remoto|x86.ActiveCfg = Debug|Any CPU
+		{2E7873CF-16BC-4AE9-897F-3166152BE01B}.Debug Remoto|x86.Build.0 = Debug|Any CPU
+		{2E7873CF-16BC-4AE9-897F-3166152BE01B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2E7873CF-16BC-4AE9-897F-3166152BE01B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2E7873CF-16BC-4AE9-897F-3166152BE01B}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{2E7873CF-16BC-4AE9-897F-3166152BE01B}.Debug|x64.Build.0 = Debug|Any CPU
+		{2E7873CF-16BC-4AE9-897F-3166152BE01B}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{2E7873CF-16BC-4AE9-897F-3166152BE01B}.Debug|x86.Build.0 = Debug|Any CPU
+		{2E7873CF-16BC-4AE9-897F-3166152BE01B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2E7873CF-16BC-4AE9-897F-3166152BE01B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2E7873CF-16BC-4AE9-897F-3166152BE01B}.Release|x64.ActiveCfg = Release|Any CPU
+		{2E7873CF-16BC-4AE9-897F-3166152BE01B}.Release|x64.Build.0 = Release|Any CPU
+		{2E7873CF-16BC-4AE9-897F-3166152BE01B}.Release|x86.ActiveCfg = Release|Any CPU
+		{2E7873CF-16BC-4AE9-897F-3166152BE01B}.Release|x86.Build.0 = Release|Any CPU
+		{BC634480-796F-4611-853A-8D0BF0A3A47A}.Debug Remoto|Any CPU.ActiveCfg = Debug|Any CPU
+		{BC634480-796F-4611-853A-8D0BF0A3A47A}.Debug Remoto|Any CPU.Build.0 = Debug|Any CPU
+		{BC634480-796F-4611-853A-8D0BF0A3A47A}.Debug Remoto|x64.ActiveCfg = Debug|Any CPU
+		{BC634480-796F-4611-853A-8D0BF0A3A47A}.Debug Remoto|x64.Build.0 = Debug|Any CPU
+		{BC634480-796F-4611-853A-8D0BF0A3A47A}.Debug Remoto|x86.ActiveCfg = Debug|Any CPU
+		{BC634480-796F-4611-853A-8D0BF0A3A47A}.Debug Remoto|x86.Build.0 = Debug|Any CPU
+		{BC634480-796F-4611-853A-8D0BF0A3A47A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BC634480-796F-4611-853A-8D0BF0A3A47A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BC634480-796F-4611-853A-8D0BF0A3A47A}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{BC634480-796F-4611-853A-8D0BF0A3A47A}.Debug|x64.Build.0 = Debug|Any CPU
+		{BC634480-796F-4611-853A-8D0BF0A3A47A}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{BC634480-796F-4611-853A-8D0BF0A3A47A}.Debug|x86.Build.0 = Debug|Any CPU
+		{BC634480-796F-4611-853A-8D0BF0A3A47A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BC634480-796F-4611-853A-8D0BF0A3A47A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BC634480-796F-4611-853A-8D0BF0A3A47A}.Release|x64.ActiveCfg = Release|Any CPU
+		{BC634480-796F-4611-853A-8D0BF0A3A47A}.Release|x64.Build.0 = Release|Any CPU
+		{BC634480-796F-4611-853A-8D0BF0A3A47A}.Release|x86.ActiveCfg = Release|Any CPU
+		{BC634480-796F-4611-853A-8D0BF0A3A47A}.Release|x86.Build.0 = Release|Any CPU
+		{39612AB4-C755-43F9-BA6C-CC07304D7E5D}.Debug Remoto|Any CPU.ActiveCfg = Debug|Any CPU
+		{39612AB4-C755-43F9-BA6C-CC07304D7E5D}.Debug Remoto|Any CPU.Build.0 = Debug|Any CPU
+		{39612AB4-C755-43F9-BA6C-CC07304D7E5D}.Debug Remoto|x64.ActiveCfg = Debug|Any CPU
+		{39612AB4-C755-43F9-BA6C-CC07304D7E5D}.Debug Remoto|x64.Build.0 = Debug|Any CPU
+		{39612AB4-C755-43F9-BA6C-CC07304D7E5D}.Debug Remoto|x86.ActiveCfg = Debug|Any CPU
+		{39612AB4-C755-43F9-BA6C-CC07304D7E5D}.Debug Remoto|x86.Build.0 = Debug|Any CPU
+		{39612AB4-C755-43F9-BA6C-CC07304D7E5D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{39612AB4-C755-43F9-BA6C-CC07304D7E5D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{39612AB4-C755-43F9-BA6C-CC07304D7E5D}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{39612AB4-C755-43F9-BA6C-CC07304D7E5D}.Debug|x64.Build.0 = Debug|Any CPU
+		{39612AB4-C755-43F9-BA6C-CC07304D7E5D}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{39612AB4-C755-43F9-BA6C-CC07304D7E5D}.Debug|x86.Build.0 = Debug|Any CPU
+		{39612AB4-C755-43F9-BA6C-CC07304D7E5D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{39612AB4-C755-43F9-BA6C-CC07304D7E5D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{39612AB4-C755-43F9-BA6C-CC07304D7E5D}.Release|x64.ActiveCfg = Release|Any CPU
+		{39612AB4-C755-43F9-BA6C-CC07304D7E5D}.Release|x64.Build.0 = Release|Any CPU
+		{39612AB4-C755-43F9-BA6C-CC07304D7E5D}.Release|x86.ActiveCfg = Release|Any CPU
+		{39612AB4-C755-43F9-BA6C-CC07304D7E5D}.Release|x86.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {BFF59853-20DD-40F1-A5EA-4CA05CB7D87B}
+	EndGlobalSection
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 5
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://mordack550.visualstudio.com/
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = ORDdb\\ORD.NET.Db.sqlproj
+		SccProjectName1 = ORDdb
+		SccLocalPath1 = ORDdb
+		SccProjectUniqueName2 = ORD.NET.Dal\\ORD.NET.Dal.csproj
+		SccProjectName2 = ORD.NET.Dal
+		SccLocalPath2 = ORD.NET.Dal
+		SccProjectUniqueName3 = ORD.NET.Service\\ORD.NET.Service.csproj
+		SccProjectName3 = ORD.NET.Service
+		SccLocalPath3 = ORD.NET.Service
+		SccProjectUniqueName4 = ORD.NET.Model\\ORD.NET.Model.csproj
+		SccProjectName4 = ORD.NET.Model
+		SccLocalPath4 = ORD.NET.Model
+	EndGlobalSection
+EndGlobal

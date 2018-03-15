@@ -1,0 +1,10 @@
+﻿CREATE TABLE [dbo].[Utenti]
+(
+	Utente VARCHAR(30) NOT NULL PRIMARY KEY,
+	Email VARCHAR(255) NOT NULL,
+	Nickname VARCHAR(100) NOT NULL,
+	IsAdmin BIT NOT NULL DEFAULT(0),
+	Registrato BIT NOT NULL DEFAULT(0),
+	Compleanno DATE NULL,
+	ProfilePic VARBINARY(MAX) NULL
+)

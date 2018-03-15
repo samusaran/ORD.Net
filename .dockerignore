@@ -1,0 +1,9 @@
+bin\
+obj\
+.vs
+*.tar
+*.ps1
+swagger*
+ORD.NET\
+ORDdb\
+ORD.NET.Setup\

@@ -1,0 +1,5 @@
+.git
+packages
+**/bin
+**/obj
+**/*.vspscc
