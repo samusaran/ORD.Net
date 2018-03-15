@@ -1,0 +1,8 @@
+appId: "com.sistemi.ordnet"
+productName: "ORD.Net"
+files:
+  - "dist/*"
+  - "node_modules/**/*"
+  - "package.json"
+directories:
+  output: "publish"
