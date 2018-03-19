@@ -1,0 +1,55 @@
+#groups-bar {
+	background-color: #1D2124;
+	left: 0;
+	bottom: 0;
+	top: 0;
+	height: 100%;
+	width: 100px;
+	position: relative;
+	margin-left: 0;
+}
+
+#groups-bar > div[title] {
+	height: 20px;
+	padding: 5px 0px;
+	text-align: center;
+}
+
+#groups-bar > div[title] > span {
+	color: #65696C;
+	font-weight: bold;
+	text-transform: uppercase;
+}
+
+#groups-bar > .horizontal-separator {
+    color: #65696C;
+    background-color: #65696C;
+	height: 2px;
+	border: none;
+	margin: 0 10px;
+	padding: 0;
+}
+
+#groups-bar .list > ul {
+    padding: 0;
+}
+
+#groups-bar .group-portrait {
+    width: 50px;
+    height: 50px;
+    background-size: cover;
+    border-radius: 10%;
+    margin: 10px auto;
+    background-color: #ffffff;
+    list-style: none;
+    box-sizing: border-box;
+    border-style: solid;
+    border-color: transparent;
+
+    transition: border-color .15s;
+}
+
+#groups-bar .group-portrait:hover,
+#groups-bar .group-portrait.selected {
+    border-color: skyblue;
+}

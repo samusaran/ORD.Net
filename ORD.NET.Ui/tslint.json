@@ -10,6 +10,8 @@
             4
         ],
         "space-before-function-paren": false,
-        "semicolon": false
+        "semicolon": {
+            "options": "always"
+        }
     }
 }

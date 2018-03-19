@@ -31,5 +31,19 @@ namespace ORD.NET.DAL
 
             return await result.ToListAsync();
         }
+
+        public async Task<bool> SaveGroup(Group group)
+        {
+            // TODO
+            Gruppi entry = await _ctx.Set<Gruppi>().SingleOrDefaultAsync(x => x.Id == group.Id);
+
+            if (entry != null)
+            {
+                entry.Immagine = group.GroupImage;
+                entry.Nome = group.Name;
+            }
+
+            return false;
+        }
     }
 }

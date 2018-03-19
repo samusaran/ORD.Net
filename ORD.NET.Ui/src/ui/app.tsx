@@ -1,15 +1,11 @@
-import * as React from 'react'
-import { GroupsSideBarComponent, GroupsSideBarProps } from './groupbar/groupbar'
-import { ZeppelinSideBarComponent } from './zeppelin-bar/zeppelin-bar'
-import { MainGridComponent } from './main-grid/main-grid'
-import { TitleBar } from './title-bar/title-bar'
-import Group from '../js/group'
-import url from 'url'
-import username from 'username'
+import * as React from 'react';
+import GroupsSideBarComponent from './groupbar/groupbar';
+import { TitleBar } from './title-bar/title-bar';
+import username from 'username';
 
 interface AppState {
-    username: string,
-    groupbarProps: GroupsSideBarProps
+    username: string;
+    theme: 'theme-default' | 'theme-light';
 }
 
 export class App extends React.Component<{}, AppState> {
@@ -19,10 +15,8 @@ export class App extends React.Component<{}, AppState> {
 
         this.state = {
             username: username.sync(),
-            groupbarProps: {
-                groups: new Array<Group>()
-            }
-        }
+            theme: 'theme-default'
+        };
     }
 
     public render() {
@@ -32,66 +26,32 @@ export class App extends React.Component<{}, AppState> {
             <div id='desktop-app-wrapper' className={className}>
                 {this.renderTitleBar()}
                 {this.renderApp()}
-                {this.renderStyle()}
             </div>
         );
-    }
-
-    componentDidMount() {
-        fetch(url.format({
-            protocol: 'http',
-            host: __API_URL__,
-            pathname: `/api/groups/${this.state.username}`
-        }))
-            .then(res => res.json())
-            .then(
-                (result) => {
-                    this.setState({
-                        groupbarProps: {
-                            groups: result
-                        }
-                    })
-                }
-            )
     }
 
     private renderApp() {
         return (
             <div id='desktop-app-content'>
                 {this.renderGroups()}
-                {this.renderZeppelins()}
-                {this.renderGrid()}
             </div>
-        )
+        );
     }
 
     private renderTitleBar() {
         return (
-            <TitleBar title='ORD.Net UI' disableMaximize={false} disableMinimize={false} />
-        )
+            <TitleBar
+                title='ORD.Net UI'
+                disableMaximize={false}
+                disableMinimize={false} />
+        );
     }
 
     private renderGroups() {
         return (
-            <GroupsSideBarComponent groups={this.state.groupbarProps.groups} />
-        )
-    }
-
-    private renderZeppelins() {
-        return (
-            <ZeppelinSideBarComponent />
-        )
-    }
-
-    private renderGrid() {
-        return (
-            <MainGridComponent />
-        )
-    }
-
-    private renderStyle() {
-        return (
-            null // implementare ThemeManager
-        )
+            <GroupsSideBarComponent
+                username={this.state.username}
+                theme={this.state.theme} />
+        );
     }
 }

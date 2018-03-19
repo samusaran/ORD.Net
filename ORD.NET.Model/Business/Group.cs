@@ -9,5 +9,7 @@ namespace ORD.NET.Model.Business
         public int Id { get; set; }
 
         public string Name { get; set; }
+
+        public byte[] GroupImage { get; set; }
     }
 }

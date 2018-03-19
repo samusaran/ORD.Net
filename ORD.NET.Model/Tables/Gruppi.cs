@@ -11,5 +11,8 @@ namespace ORD.NET.Model.Tables
 
         [Column]
         public string Nome { get; set; }
+
+        [Column]
+        public byte[] Immagine { get; set; }
     }
 }

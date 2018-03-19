@@ -15,7 +15,9 @@
 .titlebar .titlebar-title {
     float: left;
     margin: 0 0 0 4px;
-    line-height: 23px;    
+    line-height: 23px;
+    font-weight: 100;
+    text-transform: capitalize;
 }
 
 .titlebar-controls
@@ -40,7 +42,7 @@
     float: left;
     width: 30px;
     height: inherit;
-    margin: 0 1px 0 0;
+    margin: 0 0 0 1px;
     text-align: center;
     line-height: 22px;
     border: none;
@@ -93,7 +95,7 @@
 .titlebar-resize:hover,
 .titlebar-fullscreen:hover
 {
-    background-color: lightslategray;
+    background-color: darkgrey;
 }
 
 .titlebar-light .titlebar-minimize:hover,
