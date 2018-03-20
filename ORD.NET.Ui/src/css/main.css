@@ -7,7 +7,7 @@ html, body {
 
 body {
 	height: 100vh;
-	font-family: -apple-system, 'Lato', 'Helvetica Neue', Helvetica, sans-serif;
+	font-family: 'Lato', 'Helvetica Neue', Helvetica, sans-serif;
 }
 
 :not(input):not(textarea),

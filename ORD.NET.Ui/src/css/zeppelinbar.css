@@ -3,3 +3,34 @@
     width: 300px;
     height: 100%;
 }
+
+#zeppelin-bar .zeppelin-container{
+    position: relative;
+    padding: 0;
+    margin: 16px 0;
+}
+
+#zeppelin-bar .zeppelin-item {
+    color: grey;
+    list-style: none;
+    transition: color .15s;
+    padding: 8px 0;
+}
+
+#zeppelin-bar .zeppelin-item-content {
+    margin: 0 30px;
+}
+
+#zeppelin-bar .zeppelin-item-content::before {
+    content: "#";
+    margin-right: 6px;
+}
+
+#zeppelin-bar .zeppelin-item:hover,
+#zeppelin-bar .zeppelin-item.selected {
+    color: lightgray;
+}
+
+#zeppelin-bar .zeppelin-item.selected {
+    background-color: #282B30
+}
