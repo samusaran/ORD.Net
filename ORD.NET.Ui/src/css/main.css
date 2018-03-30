@@ -39,11 +39,6 @@ input, button, textarea, :focus {
     height: 100%;
 }
 
-#main-grid {
-	background-color: #36393E;
-	flex: 1;
-}
-
 button {
 	-webkit-app-region: no-drag;
 }

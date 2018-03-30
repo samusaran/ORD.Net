@@ -1,5 +1,5 @@
 import React from 'react';
-import { MainGridComponent } from '../main-grid/main-grid';
+import { OrderGridComponent } from '../order-grid/order-grid';
 import '../../css/zeppelinbar.css';
 import url from 'url';
 import Zeppelin from '../../js/zeppelin';
@@ -59,7 +59,12 @@ export default class ZeppelinSideBarComponent extends React.Component<ZeppelinBa
             <div id='zeppelin-bar' key='zeppelin-bar'>
                 {this.renderZeppelins(this.state.zeppelins)}
             </div>,
-            <MainGridComponent key='grid'/>
+            <OrderGridComponent
+                key='grid'
+                groupId={this.props.groupId}
+                selectedZeppelin={this.state.selectedZeppelin}
+                username={this.props.username}
+                theme={this.props.theme} />
         ]);
     }
 
@@ -71,12 +76,17 @@ export default class ZeppelinSideBarComponent extends React.Component<ZeppelinBa
         }
 
         const listItems = props.map((g) => {
+            const isSelected = g.id === this.state.selectedZeppelin;
+
             const liClasses = classNames({
                 'zeppelin-item': true,
-                'selected': g.id === this.state.selectedZeppelin
+                'selected': isSelected
             });
 
+            const selectionMarker = isSelected ? <div className='selection-marker' /> : null;
+
             return <li key={g.id.toString()} data-id={g.id.toString()} className={liClasses} onClick={(e) => this.selectZeppelin(e)}>
+                {selectionMarker}
                 <span className='zeppelin-item-content'>{g.nome}</span>
             </li>;
         });
@@ -87,11 +97,11 @@ export default class ZeppelinSideBarComponent extends React.Component<ZeppelinBa
     }
 
     selectZeppelin(e: React.MouseEvent<HTMLLIElement>) {
-        const id = e.currentTarget.attributes.getNamedItem('data-id').value;
+        const obj = e.currentTarget.attributes.getNamedItem('data-id');
+        const id = obj == null ? -1 : obj.value;
 
         this.setState(() => ({
             selectedZeppelin: +id
         }));
     }
-
 }

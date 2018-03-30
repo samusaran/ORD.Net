@@ -1,0 +1,35 @@
+#order-grid-container {
+	background-color: #36393E;
+    flex: 1;
+    padding: 10px;
+}
+
+.data-grid {
+    background-color: white;
+    height: 100%;
+    width: 100%;
+    position: relative;
+}
+  
+.data-grid-header-container {
+    background-color: rgb(214, 214, 214);
+    height: 30px;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    position: absolute;
+}
+
+.data-grid-header {
+    background-color: inherit;
+    height: 100%;
+    border-right: 2px ridge grey;
+    /*flex: 1;*/ /* Se dimensione non specificata, si mette flex:1 direttamente sulla colonna, altrimenti dimensione in px */
+    padding: 0 5px;
+    line-height: 30px;
+}
+
+.data-grid-content {
+    position: relative;
+    margin-top: 30px; /* uguale ad altezza data-grid-header-container */
+}

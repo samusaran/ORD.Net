@@ -82,7 +82,8 @@ export default class GroupsSideBarComponent extends React.Component<GroupsSideBa
     }
 
     selectGroup(e: React.MouseEvent<HTMLLIElement>) {
-        const id = e.currentTarget.attributes.getNamedItem('data-id').value;
+        const obj = e.currentTarget.attributes.getNamedItem('data-id');
+        const id = obj == null ? -1 : obj.value;
 
         this.setState(() => ({
             selectedGroup: +id

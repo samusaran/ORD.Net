@@ -1,7 +1,7 @@
-import React from 'react'
-import { remote } from 'electron'
+import React from 'react';
+import { remote } from 'electron';
 
-const currentWindow = remote.getCurrentWindow()
+const currentWindow = remote.getCurrentWindow();
 
 export interface TitleBarProps {
     disableMaximize: boolean;
@@ -24,12 +24,12 @@ export class TitleBar extends React.Component<TitleBarProps, TitleBarState> {
             disableMinimize: props.disableMinimize || false,
             disableMaximize: props.disableMaximize || false,
             title: props.title || ''
-        }
+        };
     }
 
     componentDidMount() {
-        currentWindow.addListener('maximize', () => this.setState({ isMaximized: true }))
-        currentWindow.addListener('unmaximize', () => this.setState({ isMaximized: false }))
+        currentWindow.addListener('maximize', () => this.setState({ isMaximized: true }));
+        currentWindow.addListener('unmaximize', () => this.setState({ isMaximized: false }));
     }
 
     render() {
@@ -57,6 +57,6 @@ export class TitleBar extends React.Component<TitleBarProps, TitleBarState> {
                     </button>
                 </div>
             </div>
-        )
+        );
     }
 }

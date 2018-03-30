@@ -12,11 +12,11 @@ namespace ORD.NET.DAL
 {
     public class OrderRepository : IOrderRepository
     {
-        private DbContext _context;
+        private readonly DbContext _context;
 
         public OrderRepository(DbContext context)
         {
-            this._context = context;
+            _context = context;
         }
 
         #region IDisposable Support
@@ -45,40 +45,39 @@ namespace ORD.NET.DAL
         /// Inserisco nuovo ordine.
         /// Se presente, cancello il precedente.
         /// </summary>
-        public async Task<FlatOrder> InsertAsync(FlatOrder o)
+        public async Task<OrderDTO> InsertAsync(OrderDTO o)
         {
             if (o == null)
                 throw new ArgumentNullException("E' necessario specificare un ordine da inserire", nameof(o));
 
-            if (o.Piatto == null || o.Piatto == "")
+            if (string.IsNullOrEmpty(o.Piatto))
                 throw new ArgumentException("Il piatto selezionato non può essere null o stringa vuota");
 
-            Ordinazioni row = _context.Set<Ordinazioni>().SingleOrDefault(a => a.Data == o.Data.Date
-                                                                            && a.Utente == o.Utente);
+            Ordinazioni row = await _context.Set<Ordinazioni>().SingleOrDefaultAsync(a => a.Data == o.Data.Date
+                                                                                       && a.Utente == o.UtenteName);
 
             if (row != null)
             {
-                _context.Set<Ordinazioni>().Attach(row);
-                //_context.Entry(row).State = EntityState.Modified;
-
-                row.OraOrdinazione = o.OraOrdinazione;
+                row.OraOrdinazione = o.Data.TimeOfDay;
                 row.Piatto = o.Piatto;
                 row.Shottini = o.Shottini;
                 row.TipoPiatto = o.TipoPiattoID;
-                row.Zeppelin = o.Zeppelin;
+                row.Zeppelin = o.ZeppelinID;
                 row.Gruppo = o.Gruppo;
             }
             else
             {
-                row = new Ordinazioni();
-                row.Data = DateTime.Today;
-                row.OraOrdinazione = o.OraOrdinazione;
-                row.Piatto = o.Piatto;
-                row.Shottini = o.Shottini;
-                row.TipoPiatto = o.TipoPiattoID;
-                row.Utente = o.Utente;
-                row.Zeppelin = o.Zeppelin;
-                row.Gruppo = o.Gruppo;
+                row = new Ordinazioni
+                {
+                    Data = DateTime.Today,
+                    OraOrdinazione = DateTime.Now.TimeOfDay,
+                    Piatto = o.Piatto,
+                    Shottini = o.Shottini,
+                    TipoPiatto = o.TipoPiattoID,
+                    Utente = o.UtenteName,
+                    Zeppelin = o.ZeppelinID,
+                    Gruppo = o.Gruppo
+                };
 
                 _context.Set<Ordinazioni>().Add(row);
             }
@@ -96,20 +95,7 @@ namespace ORD.NET.DAL
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="o"></param>
-        /// <param name="overwrite"></param>
-        //public async Task<OrderStatus> InsertAsync(FlatOrder o, bool overwrite)
-        //{
-        //    if (overwrite || !(await HasUserOrdered(o.Utente)))
-        //        return await InsertAsync(o);
-
-        //    return OrderStatus.NotModified;
-        //}
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="u"></param>
+        /// <param name="user"></param>
         /// <returns></returns>
         public async Task<bool> HasUserOrdered(string user)
         {
@@ -119,7 +105,7 @@ namespace ORD.NET.DAL
         /// <summary>
         /// Elimina l'ordine dell'utente alla data corrente.
         /// </summary>
-        /// <param name="user">Utente</param>
+        /// <param name="id">ID Utente</param>
         public async Task<bool> DeleteAsync(int id)
         {
             Ordinazioni ordine = _context.Set<Ordinazioni>().SingleOrDefault(o => o.IdOrdinazione == id);
@@ -131,11 +117,11 @@ namespace ORD.NET.DAL
         /// <summary>
         /// Funzione per sapere se l'ordine relativo allo zeppelin è già stato inviato.
         /// </summary>
-        /// <param name="zeppelinID"></param>
+        /// <param name="zp">ID Zeppelin</param>
         /// <returns></returns>
         public async Task<bool> IsOrderAlreadySentAsync(int zp)
         {
-            return await _context.Set<Model.Tables.LogMail>()
+            return await _context.Set<LogMail>()
                            .AnyAsync(m => (m.DataInvio >= DateTime.Today && m.DataInvio < DateTime.Today.AddDays(1))
                                        && m.Zeppelin == zp);
         }
@@ -148,7 +134,7 @@ namespace ORD.NET.DAL
         public async Task<bool> IsOrderAlreadySentAsync(string user)
         {
             var result = from ord in _context.Set<Ordinazioni>()
-                         join mail in _context.Set<Model.Tables.LogMail>() on new { Zeppelin = ord.Zeppelin.Value, Data = ord.Data } equals new { Zeppelin = mail.Zeppelin, Data = mail.DataInvio.Date }
+                         join mail in _context.Set<LogMail>() on new { Zeppelin = ord.Zeppelin.Value, ord.Data } equals new {mail.Zeppelin, Data = mail.DataInvio.Date }
                          where ord.Utente == user && ord.Data == DateTime.Today
                          select ord;
 
@@ -183,7 +169,7 @@ namespace ORD.NET.DAL
                          select new ChartOrderItem
                          {
                              Presente = g.Key.Presente,
-                             IdZeppelin = (int?)g.Key.Zeppelin.ID ?? -1,
+                             IdZeppelin = g.Key.Zeppelin == null ? -1 : g.Key.Zeppelin.ID,
                              NomeZeppelin = g.Key.Zeppelin.Descrizione,
                              Utenti = g.Select(e => e.Utente.Nickname).ToList(),
                              CakeDay = g.Any(o => o.Utente.Compleanno.HasValue && o.Utente.Compleanno.Value.Month == DateTime.Today.Month && o.Utente.Compleanno.Value.Day == DateTime.Today.Day),
@@ -211,7 +197,9 @@ namespace ORD.NET.DAL
                               && (user == null || users.Utente == user)
                         select new Order
                         {
+                            IdOrdinazione = order.IdOrdinazione,
                             Data = order.Data,
+                            Gruppo = order.Gruppo,
                             OraOrdinazione = order.OraOrdinazione,
                             Piatto = order.Piatto,
                             Shottini = order.Shottini,
@@ -292,16 +280,16 @@ namespace ORD.NET.DAL
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="u"></param>
-        public async Task<FlatOrder> SetUserAsMissingAsync(string user)
+        /// <param name="user"></param>
+        public async Task<OrderDTO> SetUserAsMissingAsync(string user)
         {
-            return await this.InsertAsync(new FlatOrder
+            return await InsertAsync(new OrderDTO
             {
-                Utente = user,
+                UtenteName = user,
                 Piatto = "Assente",
                 TipoPiattoID = DishType.Assente.ID,
                 Shottini = false,
-                Zeppelin = null
+                ZeppelinID = null
             });
         }
 

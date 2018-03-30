@@ -8,7 +8,7 @@ namespace ORD.NET.DAL
 {
     public interface IOrderRepository : IDisposable
     {
-        Task<FlatOrder> InsertAsync(FlatOrder o);
+        Task<OrderDTO> InsertAsync(OrderDTO o);
         Task<bool> HasUserOrdered(string user);
         Task<bool> DeleteAsync(int id);
         Task<bool> IsOrderAlreadySentAsync(int zp);
@@ -18,7 +18,7 @@ namespace ORD.NET.DAL
         Task<List<Order>> GetOrdersAsync(int? gruppo, int? zeppelin, string user, bool includeMissing);
         Task<Order> GetOrderAsync(int id);
         Task<List<string>> GetUserHistoryAsync(string user);
-        Task<FlatOrder> SetUserAsMissingAsync(string user);
+        Task<OrderDTO> SetUserAsMissingAsync(string user);
         Task<Zeppelin> GetZeppelinAsync(string user);
         Task<Order> GetOrderOfUserAsync(string user);
     }

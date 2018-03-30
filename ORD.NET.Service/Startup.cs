@@ -1,17 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
-using Microsoft.EntityFrameworkCore;
 using ORD.NET.DAL;
 using Swashbuckle.AspNetCore.Swagger;
-using Microsoft.EntityFrameworkCore.Diagnostics;
+using System;
+using ORD.NET.Model.Business;
+using ORD.NET.Model.DTO;
 
 namespace ORD.NET.Service
 {
@@ -52,11 +51,17 @@ namespace ORD.NET.Service
                 c.SwaggerDoc("v1", new Info { Title = "ORD.Net Api", Version = "v1" });
             });
 
+            services.AddAutoMapper(cfg =>
+            {
+                cfg.CreateMap<Order, OrderDTO>()
+                    .ForMember(dest => dest.Data, opt => opt.MapFrom(src => src.Data.Add(src.OraOrdinazione)));
+            });
+
             return services.BuildServiceProvider();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             if (env.IsDevelopment())
             {
@@ -70,7 +75,7 @@ namespace ORD.NET.Service
             app.UseSwaggerUI(c =>
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "ORD.Net API v1");
-                c.SupportedSubmitMethods(SubmitMethod.Get | SubmitMethod.Post | SubmitMethod.Put | SubmitMethod.Head);
+                c.SupportedSubmitMethods(SubmitMethod.Get, SubmitMethod.Post, SubmitMethod.Put, SubmitMethod.Head);
             });
 
             app.UseMvc();

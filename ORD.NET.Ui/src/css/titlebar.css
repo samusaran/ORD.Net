@@ -4,26 +4,34 @@
     position: relative;
     height: 25px;
     padding: 0;
-    background: grey;
+    background: #1D2124;
+    flex-shrink: 0;
+    border-bottom: 1px solid rgb(26, 30, 32);
 }
 
 .titlebar.draggable
 {
     -webkit-app-region: drag;
+    position: relative;
 }
 
 .titlebar .titlebar-title {
-    float: left;
-    margin: 0 0 0 4px;
+    float: none;
     line-height: 23px;
+    width: 100%;
+    color: grey;
     font-weight: 100;
-    text-transform: capitalize;
+    text-align: center;
+    height: inherit;
+    position: absolute;
 }
 
 .titlebar-controls
 {
     float: right;
+    right: 0;
     text-align: left;
+    position: absolute;
     height: inherit;
 }
 
@@ -63,10 +71,10 @@
 }
 
 .titlebar-minimize svg,
-.titlebar-resize svg.maximize-svg,
-.titlebar-resize svg.fullscreen-svg,
+.titlebar-resize svg,
 .titlebar-close svg
 {
+    fill: grey;
     width: 10px;
     height: 10px;
     shape-rendering: crispEdges;

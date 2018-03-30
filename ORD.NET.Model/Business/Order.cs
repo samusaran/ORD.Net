@@ -24,6 +24,6 @@ namespace ORD.NET.Model.Business
 
         public bool Shottini { get; set; }
 
-        public int IdOrdinazione { get; private set; }
+        public int IdOrdinazione { get; set; }
     }
 }

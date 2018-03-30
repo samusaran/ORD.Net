@@ -4,23 +4,26 @@ using ORD.NET.Model.Business;
 using ORD.NET.Model.DTO;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using AutoMapper;
 
 namespace ORD.NET.Service.Controllers
 {
     [Route("api/orders")]
     public class OrdersController : Controller
     {
-        private IOrderRepository _orders;
+        private readonly IOrderRepository _orders;
+        private readonly IMapper _mapper;
 
-        public OrdersController(IOrderRepository o)
+        public OrdersController(IOrderRepository o, AutoMapper.IMapper m)
         {
             _orders = o;
+            _mapper = m;
         }
 
         [HttpPost]
         [ProducesResponseType(400)]
         [ProducesResponseType(typeof(Order), 201)]
-        public async Task<IActionResult> InsertOrder(FlatOrder o)
+        public async Task<IActionResult> InsertOrder(OrderDTO o)
         {
             if (!ModelState.IsValid)
                 return BadRequest();
@@ -34,19 +37,22 @@ namespace ORD.NET.Service.Controllers
         }
 
         [HttpGet("group/{group:int}")]
-        [ProducesResponseType(typeof(IEnumerable<Order>), 200)]
+        [ProducesResponseType(typeof(IEnumerable<OrderDTO>), 200)]
         public async Task<IActionResult> GetOrders(int group, [FromQuery] bool? includeMissing)
         {
             var result = await _orders.GetOrdersAsync(group, null, null, includeMissing ?? false);
-            return Ok(result);
+
+            var mappedResult = _mapper.Map<List<OrderDTO>>(result);
+            return Ok(mappedResult);
         }
 
         [HttpGet("group/{group:int}/zeppelin/{zp:int}")]
-        [ProducesResponseType(typeof(IEnumerable<Order>), 200)]
+        [ProducesResponseType(typeof(IEnumerable<OrderDTO>), 200)]
         public async Task<IActionResult> GetOrdersByZeppelin(int group, int zp, [FromQuery] bool? includeMissing)
         {
             var result = await _orders.GetOrdersAsync(group, zp, null, includeMissing ?? false);
-            return Ok(result);
+            var mappedResult = _mapper.Map<List<OrderDTO>>(result);
+            return Ok(mappedResult);
         }
 
         [HttpGet("{id:int}", Name = "GetOrder")]
