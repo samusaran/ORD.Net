@@ -6,7 +6,7 @@ const merge = require('webpack-merge')
 const webpack = require('webpack')
 
 const replacements = {
-    __API_URL__: JSON.stringify("localhost:5000")
+    __API_URL__: JSON.stringify("alosi.sisteminet.it:5000")
 }
 
 const commonConfig = {

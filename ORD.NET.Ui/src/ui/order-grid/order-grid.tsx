@@ -1,11 +1,15 @@
 import React from 'react';
 import Order from '../../js/order';
 import '../../css/order-grid.css';
-import DataGridComponent from '../data-grid/data-grid';
+import url from 'url';
+import classNames from 'classnames';
+// import DataGridComponent from '../data-grid/data-grid';
+import ReactTable from 'react-table';
+import 'react-table/react-table.css';
 
 export interface OrderGridProps {
-    groupId?: number;
-    selectedZeppelin?: number;
+    groupId: number;
+    selectedZeppelin: number;
     username: string;
     theme?: string;
 }
@@ -16,9 +20,9 @@ export interface OrderGridState {
 
 export class OrderGridComponent extends React.Component<OrderGridProps, OrderGridState> {
 
-    private _columns = [
+/*     private _columns = [
         { key: 'id', name: 'ID' }
-    ];
+    ]; */
 
     constructor(props: OrderGridProps) {
         super(props);
@@ -28,17 +32,66 @@ export class OrderGridComponent extends React.Component<OrderGridProps, OrderGri
         };
     }
 
+    componentWillReceiveProps(nextProps: OrderGridProps) {
+        if (nextProps.groupId === this.props.groupId &&
+            nextProps.selectedZeppelin === this.props.selectedZeppelin) {
+            return;
+        }
+
+        if (nextProps.selectedZeppelin === -1) {
+            this.setState(() => ({
+                orders: []
+            }));
+            return;
+        } else {
+            fetch(url.format({
+                protocol: 'http',
+                host: __API_URL__,
+                pathname: `/api/orders/group/${this.props.groupId}/zeppelin/${this.props.selectedZeppelin}`
+            }))
+                .then(res => res.json())
+                .then(
+                    (result) => {
+                        this.setState({
+                            orders: result
+                        });
+                    }
+                );
+        }
+    }
+
     rowGetter(i: number) {
         return this.state.orders[i];
     }
 
     render() {
+        const classes = classNames({
+            'data-grid': true,
+            'hidden': this.props.selectedZeppelin === -1
+        });
+
+        const columns = [{
+            Header: '',
+            accessor: 'profilepic'
+        }, {
+            Header: 'Adepto',
+            accessor: 'username'
+        }, {
+            Header: 'Piatto scelto',
+            accessor: 'dish'
+        }];
+
         return (
             <div id='order-grid-container'>
-                <DataGridComponent
-                    columns={this._columns}
-                    rowGetter={(index) => this.rowGetter(index)}
-                    rowsCount={this.state.orders.length} />
+                <ReactTable
+                    data={this.state.orders}
+                    columns={columns}
+                    className={classes}
+                    showPageSizeOptions={false}
+                    showPageJump={false}
+                    showPagination={false}
+                    minRows={0}
+                    noDataText={'Nessun ordine presente'}/>
             </div>
         );
     }

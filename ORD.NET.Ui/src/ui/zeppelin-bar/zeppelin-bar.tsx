@@ -6,14 +6,14 @@ import Zeppelin from '../../js/zeppelin';
 import classNames from 'classnames';
 
 export interface ZeppelinBarProps {
-    groupId?: number;
+    groupId: number;
     username: string;
     theme?: string;
 }
 
 export interface ZeppelinBarState {
     zeppelins: Array<Zeppelin>;
-    selectedZeppelin?: number;
+    selectedZeppelin: number;
 }
 
 export default class ZeppelinSideBarComponent extends React.Component<ZeppelinBarProps, ZeppelinBarState> {
@@ -22,7 +22,8 @@ export default class ZeppelinSideBarComponent extends React.Component<ZeppelinBa
         super(props);
 
         this.state = {
-            zeppelins: new Array<Zeppelin>()
+            zeppelins: new Array<Zeppelin>(),
+            selectedZeppelin: -1
         };
     }
 
@@ -83,10 +84,9 @@ export default class ZeppelinSideBarComponent extends React.Component<ZeppelinBa
                 'selected': isSelected
             });
 
-            const selectionMarker = isSelected ? <div className='selection-marker' /> : null;
+            // const selectionMarker = isSelected ? <div className='selection-marker' /> : null;
 
             return <li key={g.id.toString()} data-id={g.id.toString()} className={liClasses} onClick={(e) => this.selectZeppelin(e)}>
-                {selectionMarker}
                 <span className='zeppelin-item-content'>{g.nome}</span>
             </li>;
         });

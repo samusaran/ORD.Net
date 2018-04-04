@@ -10,6 +10,10 @@ body {
 	font-family: 'Lato', 'Helvetica Neue', Helvetica, sans-serif;
 }
 
+.hidden {
+    display: none;
+}
+
 :not(input):not(textarea),
 :not(input):not(textarea)::after,
 :not(input):not(textarea)::before {

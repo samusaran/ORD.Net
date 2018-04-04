@@ -6,15 +6,30 @@ export default class DataGridComponent extends React.Component<{}, {}> {
     }
 
     render() {
+        let content = [];
+
+        for (let i = 0; i < 100; i++) {
+            content.push(i.toString());
+        }
+
+        const contents = content.map((e) => {
+            return (<tr><td>{e}</td></tr>);
+        });
+
         return (
-            <div className='data-grid'>
-                <div className='data-grid-header-container'>
-        
-                </div>
-                <div className='data-grid-content'>
-        
-                </div>
-          </div>
+            <table className='data-grid'>
+                <thead className='data-grid-header-container'>
+                    <tr>
+                        <th>col1</th>
+                        <th>col2</th>
+                        <th>col2</th>
+                        <th>col2</th>
+                    </tr>
+                </thead>
+                <tbody className='data-grid-content'>
+                    {contents}
+                </tbody>
+            </table>
         );
     }
 }

@@ -17,6 +17,7 @@
     position: relative;
     height: 30px; /*Funge bene anche senza, ma non funzionano gli inherit dentro*/
     line-height: 30px;
+    border-left: 3px solid transparent;
 }
 
 #zeppelin-bar .zeppelin-item-content {
@@ -34,14 +35,6 @@
 }
 
 #zeppelin-bar .zeppelin-item.selected {
-    background-color: #282B30
-}
-
-/* Si potrebbe gestire come Border Color della box di selezione. sarebbe più pulito credo */  
-#zeppelin-bar .selection-marker {
-    background-color: purple;
-    width: 3px;
-    position: absolute;
-    float: left;
-    height: inherit;
+    background-color: #282B30;
+    border-left: 3px solid purple;
 }

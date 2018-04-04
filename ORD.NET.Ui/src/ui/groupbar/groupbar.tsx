@@ -12,7 +12,7 @@ export interface GroupsSideBarProps {
 
 export interface GroupsSideBarState {
     groups: Array<Group>;
-    selectedGroup?: number;
+    selectedGroup: number;
 }
 
 export default class GroupsSideBarComponent extends React.Component<GroupsSideBarProps, GroupsSideBarState> {
@@ -21,7 +21,8 @@ export default class GroupsSideBarComponent extends React.Component<GroupsSideBa
         super(props);
 
         this.state = {
-            groups: new Array<Group>()
+            groups: new Array<Group>(),
+            selectedGroup: -1
         };
     }
 
