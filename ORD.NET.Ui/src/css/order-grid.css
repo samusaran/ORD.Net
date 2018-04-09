@@ -5,6 +5,8 @@
 }
 
 .data-grid {
+	background-color: #46494E;
+    color: rgb(150, 150, 150);
     height: 100%;
     width: 100%;
     position: relative;

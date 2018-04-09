@@ -20,9 +20,9 @@ export interface OrderGridState {
 
 export class OrderGridComponent extends React.Component<OrderGridProps, OrderGridState> {
 
-/*     private _columns = [
-        { key: 'id', name: 'ID' }
-    ]; */
+    /*     private _columns = [
+            { key: 'id', name: 'ID' }
+        ]; */
 
     constructor(props: OrderGridProps) {
         super(props);
@@ -43,21 +43,21 @@ export class OrderGridComponent extends React.Component<OrderGridProps, OrderGri
                 orders: []
             }));
             return;
-        } else {
-            fetch(url.format({
-                protocol: 'http',
-                host: __API_URL__,
-                pathname: `/api/orders/group/${this.props.groupId}/zeppelin/${this.props.selectedZeppelin}`
-            }))
-                .then(res => res.json())
-                .then(
-                    (result) => {
-                        this.setState({
-                            orders: result
-                        });
-                    }
-                );
         }
+
+        fetch(url.format({
+            protocol: 'http',
+            host: __API_URL__,
+            pathname: `/api/orders/group/${nextProps.groupId}/zeppelin/${nextProps.selectedZeppelin}`
+        }))
+            .then(res => res.json())
+            .then(
+                (result) => {
+                    this.setState(() => ({
+                        orders: result
+                    }));
+                }
+            );
     }
 
     rowGetter(i: number) {
@@ -75,10 +75,10 @@ export class OrderGridComponent extends React.Component<OrderGridProps, OrderGri
             accessor: 'profilepic'
         }, {
             Header: 'Adepto',
-            accessor: 'username'
+            accessor: 'utenteName'
         }, {
             Header: 'Piatto scelto',
-            accessor: 'dish'
+            accessor: 'piatto'
         }];
 
         return (
@@ -90,8 +90,8 @@ export class OrderGridComponent extends React.Component<OrderGridProps, OrderGri
                     showPageSizeOptions={false}
                     showPageJump={false}
                     showPagination={false}
-                    minRows={0}
-                    noDataText={'Nessun ordine presente'}/>
+                    minRows={1}
+                    noDataText={'Nessun ordine presente'} />
             </div>
         );
     }
