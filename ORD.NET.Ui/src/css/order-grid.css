@@ -1,13 +1,48 @@
-#order-grid-container {
+#order-list-container {
 	background-color: #36393E;
     flex: 1;
     padding: 10px;
+    display: flex;
+    flex-direction: column;
 }
 
-.data-grid {
-	background-color: #46494E;
-    color: rgb(150, 150, 150);
-    height: 100%;
+#order-list-controls {
     width: 100%;
     position: relative;
+    height: 30px;
+    margin-bottom: 5px;
+}
+
+#order-list-content {
+    flex: 1;
+    width: 100%;
+}
+
+.order-list-control
+{
+    float: right;
+    position: relative;
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+    background-color: #303136;
+    margin-left: 3px;
+}
+
+.order-list-control path {
+    stroke-linejoin: round;
+}
+
+.order-list-new > path {
+    fill: rgb(0,200,100);
+}
+
+.order-list-remove > path {
+    fill: rgb(200,0,0);
+}
+
+.-no-orders {
+    background-image: url('../img/h6xivdo2ld3y.gif');
+    background-repeat: no-repeat;
+    background-position: center;
 }

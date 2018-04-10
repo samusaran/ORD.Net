@@ -3,9 +3,6 @@ import Order from '../../js/order';
 import '../../css/order-grid.css';
 import url from 'url';
 import classNames from 'classnames';
-// import DataGridComponent from '../data-grid/data-grid';
-import ReactTable from 'react-table';
-import 'react-table/react-table.css';
 
 export interface OrderGridProps {
     groupId: number;
@@ -60,38 +57,32 @@ export class OrderGridComponent extends React.Component<OrderGridProps, OrderGri
             );
     }
 
-    rowGetter(i: number) {
-        return this.state.orders[i];
-    }
-
     render() {
-        const classes = classNames({
-            'data-grid': true,
+        const controlClasses = classNames({
             'hidden': this.props.selectedZeppelin === -1
         });
 
-        const columns = [{
-            Header: '',
-            accessor: 'profilepic'
-        }, {
-            Header: 'Adepto',
-            accessor: 'utenteName'
-        }, {
-            Header: 'Piatto scelto',
-            accessor: 'piatto'
-        }];
+        const contentClasses = classNames({
+            'hidden': this.props.selectedZeppelin === -1,
+            '-no-orders': this.state.orders.length === 0
+        });
 
         return (
-            <div id='order-grid-container'>
-                <ReactTable
-                    data={this.state.orders}
-                    columns={columns}
-                    className={classes}
-                    showPageSizeOptions={false}
-                    showPageJump={false}
-                    showPagination={false}
-                    minRows={1}
-                    noDataText={'Nessun ordine presente'} />
+            <div id='order-list-container'>
+                <div id='order-list-controls' className={controlClasses}>
+                    <div className='order-list-control'>
+                        <svg className='order-list-new' viewBox='0 0 19 19'>
+                            <path d='M8 4 h3 v4 h4 v3 h-4 v4 h-3 v-4 h-4 v-3 h4 z' />
+                        </svg>
+                    </div>
+                    <div className='order-list-control'>
+                        <svg className='order-list-remove' viewBox='0 0 19 19'>
+                            <path d='M4 8 h11 v3 h-11 v-3 z' />
+                        </svg>
+                    </div>
+                </div>
+                <div id='order-list-content' className={contentClasses}>
+                </div>
             </div>
         );
     }

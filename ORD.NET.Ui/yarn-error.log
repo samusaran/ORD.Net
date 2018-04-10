@@ -30,6 +30,7 @@ npm manifest:
       "prestart": "yarn run build",
       "start": "electron ./dist/main.js",
       "build": "webpack --config webpack.config.js",
+      "prerelease": "yarn run build",
       "release": "electron-builder --publish=never"
     },
     "dependencies": {
@@ -42,6 +43,7 @@ npm manifest:
       "@types/node": "^9.4.6",
       "@types/react": "^16.0.38",
       "@types/react-dom": "^16.0.4",
+      "@types/react-table": "^6.7.8",
       "@types/username": "^3.0.0",
       "babel-cli": "^6.26.0",
       "babel-core": "^6.26.0",
@@ -70,6 +72,7 @@ npm manifest:
       "typescript": "^2.7.2",
       "typescript-eslint-parser": "^13.0.0",
       "url": "^0.11.0",
+      "url-loader": "^1.0.1",
       "username": "^3.0.0",
       "webpack": "^3.11.0",
       "webpack-merge": "^4.1.2"
@@ -127,6 +130,12 @@ Lockfile:
     resolved "https://registry.npmjs.org/@types/react-dom/-/react-dom-16.0.4.tgz#2e8fd45f5443780ed49bf2cdd9809e6091177a7d"
     dependencies:
       "@types/node" "*"
+      "@types/react" "*"
+  
+  "@types/react-table@^6.7.8":
+    version "6.7.8"
+    resolved "https://registry.npmjs.org/@types/react-table/-/react-table-6.7.8.tgz#698e672df1a157781531d13af8ff49b2af22b390"
+    dependencies:
       "@types/react" "*"
   
   "@types/react@*", "@types/react@^16.0.38":
@@ -4049,6 +4058,10 @@ Lockfile:
     dependencies:
       mime-db "~1.33.0"
   
+  mime@^2.0.3:
+    version "2.2.2"
+    resolved "https://registry.npmjs.org/mime/-/mime-2.2.2.tgz#6b4c109d88031d7b5c23635f5b923da336d79121"
+  
   mime@^2.2.0:
     version "2.2.0"
     resolved "https://registry.npmjs.org/mime/-/mime-2.2.0.tgz#161e541965551d3b549fa1114391e3a3d55b923b"
@@ -5386,7 +5399,7 @@ Lockfile:
     version "1.2.4"
     resolved "https://registry.npmjs.org/sax/-/sax-1.2.4.tgz#2816234e2378bddc4e5354fab5caa895df7100d9"
   
-  schema-utils@^0.4.5:
+  schema-utils@^0.4.3, schema-utils@^0.4.5:
     version "0.4.5"
     resolved "https://registry.npmjs.org/schema-utils/-/schema-utils-0.4.5.tgz#21836f0608aac17b78f9e3e24daff14a5ca13a3e"
     dependencies:
@@ -6171,6 +6184,14 @@ Lockfile:
   urix@^0.1.0:
     version "0.1.0"
     resolved "https://registry.npmjs.org/urix/-/urix-0.1.0.tgz#da937f7a62e21fec1fd18d49b35c2935067a6c72"
+  
+  url-loader@^1.0.1:
+    version "1.0.1"
+    resolved "https://registry.npmjs.org/url-loader/-/url-loader-1.0.1.tgz#61bc53f1f184d7343da2728a1289ef8722ea45ee"
+    dependencies:
+      loader-utils "^1.1.0"
+      mime "^2.0.3"
+      schema-utils "^0.4.3"
   
   url-parse-lax@^1.0.0:
     version "1.0.0"
