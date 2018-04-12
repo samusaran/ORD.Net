@@ -16,6 +16,7 @@
 #order-list-content {
     flex: 1;
     width: 100%;
+    overflow: auto;
 }
 
 .order-list-control
@@ -45,4 +46,48 @@
     background-image: url('../img/h6xivdo2ld3y.gif');
     background-repeat: no-repeat;
     background-position: center;
+}
+
+#order-list-content > ul {
+    margin-top: 5px;
+}
+
+.order-list-item {
+    color: lightgray;
+    list-style: none;
+    transition: color .15s;
+    position: relative;
+    height: 50px;
+    border-left: 3px solid transparent;
+    margin-bottom: 10px;
+}
+
+.order-list-item .profile-pic-small {
+    width: 50px;
+    height: 50px;
+    background-color: white;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.order-list-item .user-name {
+    font-weight: bold;
+    width: 100%;
+    vertical-align: top;
+    margin-top: 2px;
+}
+
+.order-list-item .order-text {
+    width: 100%;
+    margin-top: 5px;
+
+}
+
+.order-list-item > div {
+    display: inline-block;
+    height: 100%;
+}
+
+.order-list-item .single-order-text-container {
+    vertical-align: top;
 }

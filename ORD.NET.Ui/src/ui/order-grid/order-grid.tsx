@@ -13,6 +13,7 @@ export interface OrderGridProps {
 
 export interface OrderGridState {
     orders: Array<Order>;
+    selectedOrder: number;
 }
 
 export class OrderGridComponent extends React.Component<OrderGridProps, OrderGridState> {
@@ -25,7 +26,8 @@ export class OrderGridComponent extends React.Component<OrderGridProps, OrderGri
         super(props);
 
         this.state = {
-            orders: new Array<Order>()
+            orders: new Array<Order>(),
+            selectedOrder: -1
         };
     }
 
@@ -57,6 +59,27 @@ export class OrderGridComponent extends React.Component<OrderGridProps, OrderGri
             );
     }
 
+    renderOrders(orders: Array<Order>) {
+        const listItems = orders.map((o) => {
+            const isSelected = o.idOrdinazione === this.state.selectedOrder;
+
+            const liClasses = classNames({
+                'order-list-item': true,
+                'selected': isSelected
+            });
+
+            return <li key={o.idOrdinazione.toString()} data-id={o.idOrdinazione.toString()} className={liClasses}>
+                <div className='profile-pic-small'></div>
+                <div className='single-order-text-container'>
+                    <div className='user-name'>{o.utenteName}</div>
+                    <div className='order-text'>{o.piatto}</div>
+                </div>
+            </li>;
+        });
+
+        return listItems;
+    }
+
     render() {
         const controlClasses = classNames({
             'hidden': this.props.selectedZeppelin === -1
@@ -82,6 +105,9 @@ export class OrderGridComponent extends React.Component<OrderGridProps, OrderGri
                     </div>
                 </div>
                 <div id='order-list-content' className={contentClasses}>
+                    <ul>
+                        {this.renderOrders(this.state.orders)}
+                    </ul>
                 </div>
             </div>
         );
